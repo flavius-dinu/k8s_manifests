@@ -1,0 +1,32 @@
+# Child app #2: an external Helm chart (Stefan Prodan's podinfo).
+# Demonstrates ArgoCD tracking a remote Helm repo and overriding values inline.
+# podinfo ships a nice web UI, making the demo visually obvious.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: podinfo
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://stefanprodan.github.io/podinfo
+    chart: podinfo
+    targetRevision: ">=6.0.0"
+    helm:
+      values: |
+        replicaCount: 2
+        ui:
+          message: "Deployed by ArgoCD App of Apps 🚀"
+        service:
+          type: ClusterIP
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: podinfo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

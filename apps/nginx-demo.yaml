@@ -1,0 +1,24 @@
+# Child app #1: plain manifests stored in THIS repo.
+# Demonstrates GitOps over raw Kubernetes YAML (no Helm/Kustomize needed).
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-demo
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/flavius-dinu/k8s_manifests.git
+    targetRevision: main
+    path: manifests/nginx-demo
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx-demo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

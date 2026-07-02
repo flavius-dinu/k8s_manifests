@@ -1,0 +1,28 @@
+# App of Apps root Application.
+# This single Application watches the `apps/` directory in this repo. Every child
+# Application manifest committed there is picked up and synced automatically — so
+# adding a new app to the platform is just "drop a file in apps/ and push".
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-root
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/flavius-dinu/k8s_manifests.git
+    targetRevision: main
+    path: apps
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
