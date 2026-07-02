@@ -79,3 +79,5 @@ every child Application and their workloads.
 
 > **Note:** `repoURL` in `root-app.yaml` and `apps/nginx-demo.yaml` points at
 > `github.com/flavius-dinu/k8s_manifests`. If you fork this, update those URLs.
+
+<!-- dummy change by Prism: 2026-07-02T09:38:49Z -->
