@@ -4,7 +4,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: podinfo
+  name: lensagents-podinfo
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -23,7 +23,7 @@ spec:
           type: ClusterIP
   destination:
     server: https://kubernetes.default.svc
-    namespace: podinfo
+    namespace: lademo
   syncPolicy:
     automated:
       prune: true

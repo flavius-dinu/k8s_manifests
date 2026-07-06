@@ -3,7 +3,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx-demo
+  name: lensagents-nginx-demo
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -15,7 +15,7 @@ spec:
     path: manifests/nginx-demo
   destination:
     server: https://kubernetes.default.svc
-    namespace: nginx-demo
+    namespace: lademo
   syncPolicy:
     automated:
       prune: true

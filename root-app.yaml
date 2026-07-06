@@ -5,7 +5,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: demo-root
+  name: lensagents-demo-root
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
