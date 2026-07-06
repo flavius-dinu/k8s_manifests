@@ -21,11 +21,13 @@ manifests/
 
 The three child apps deliberately cover the three common ArgoCD source types:
 
-| Child app    | Source type      | Where it lives                         |
-|--------------|------------------|----------------------------------------|
-| `nginx-demo` | Directory        | this repo (`manifests/nginx-demo`)     |
-| `podinfo`    | Helm chart       | `stefanprodan.github.io/podinfo`       |
-| `guestbook`  | Directory        | `argoproj/argocd-example-apps` repo    |
+| Child app                | Source type      | Where it lives                         |
+|--------------------------|------------------|----------------------------------------|
+| `lensagents-nginx-demo`  | Directory        | this repo (`manifests/nginx-demo`)     |
+| `lensagents-podinfo`     | Helm chart       | `stefanprodan.github.io/podinfo`       |
+| `lensagents-guestbook`   | Directory        | `argoproj/argocd-example-apps` repo    |
+
+All child apps deploy into the `lademo` namespace.
 
 ## Prerequisites
 
@@ -48,18 +50,18 @@ Watch it fan out:
 
 ```sh
 kubectl get applications -n argocd
-# demo-root, nginx-demo, podinfo, guestbook should all appear and go Synced/Healthy
+# lensagents-demo-root, lensagents-nginx-demo, lensagents-podinfo, lensagents-guestbook should all appear and go Synced/Healthy
 ```
 
 ## Try it
 
 ```sh
 # nginx-demo
-kubectl -n nginx-demo port-forward svc/nginx-demo 8080:80
+kubectl -n lademo port-forward svc/lensagents-nginx-demo 8080:80
 # open http://localhost:8080
 
 # podinfo
-kubectl -n podinfo port-forward svc/podinfo 9898:9898
+kubectl -n lademo port-forward svc/podinfo 9898:9898
 # open http://localhost:9898
 ```
 
@@ -77,5 +79,9 @@ kubectl delete -f root-app.yaml
 The `resources-finalizer.argocd.argoproj.io` finalizer cascades the delete to
 every child Application and their workloads.
 
+> **Note:** the podinfo Helm chart names its own Service `podinfo` (unaffected by
+> the `lensagents-` prefix, which only applies to the ArgoCD Application names and
+> the in-repo nginx-demo manifests).
+>
 > **Note:** `repoURL` in `root-app.yaml` and `apps/nginx-demo.yaml` points at
 > `github.com/flavius-dinu/k8s_manifests`. If you fork this, update those URLs.

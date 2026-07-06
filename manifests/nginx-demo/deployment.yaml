@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-demo
-  labels: { app: nginx-demo }
+  name: lensagents-nginx-demo
+  labels: { app: lensagents-nginx-demo }
 spec:
   replicas: 2
   selector:
-    matchLabels: { app: nginx-demo }
+    matchLabels: { app: lensagents-nginx-demo }
   template:
     metadata:
-      labels: { app: nginx-demo }
+      labels: { app: lensagents-nginx-demo }
     spec:
       containers:
         - name: nginx
@@ -24,4 +24,4 @@ spec:
               subPath: index.html
       volumes:
         - name: html
-          configMap: { name: nginx-demo-html }
+          configMap: { name: lensagents-nginx-demo-html }

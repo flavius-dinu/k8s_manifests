@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-demo-html
+  name: lensagents-nginx-demo-html
 data:
   index.html: |
     <!doctype html>

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-demo
-  labels: { app: nginx-demo }
+  name: lensagents-nginx-demo
+  labels: { app: lensagents-nginx-demo }
 spec:
-  selector: { app: nginx-demo }
+  selector: { app: lensagents-nginx-demo }
   ports:
     - port: 80
       targetPort: 80
