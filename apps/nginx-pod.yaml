@@ -1,0 +1,23 @@
+# Child app: a single bare nginx Pod (no Deployment) from plain manifests in THIS repo.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lensagents-nginx-pod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/flavius-dinu/k8s_manifests.git
+    targetRevision: main
+    path: manifests/nginx-pod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: lademo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
