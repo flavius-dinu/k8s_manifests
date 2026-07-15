@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - name: nginx
-      image: nginx:stable-alpineeeeeeeee
+      image: nginx:stable-alpine
       ports: [{ containerPort: 80 }]
       resources:
         requests: { cpu: 10m, memory: 16Mi }
